@@ -11,7 +11,9 @@ interface ProductsResponse {
 }
 
 async function getProducts(): Promise<ProductsResponse> {
-  const res = await fetch("https://dummyjson.com/products");
+  const res = await fetch("https://dummyjson.com/products", {
+    cache: "force-cache",
+  });
 
   if (!res.ok) {
     throw new Error("Failed to get the products");
@@ -28,9 +30,9 @@ async function ServerSideFetch() {
       <h1 className="">Server data fetching</h1>
       {products?.products?.map((product) => (
         <div key={product?.id} className="border border-white/30 p-5">
-          <h3 className="">{product?.title}</h3>
-          <p>{product?.price}</p>
-          <p>{product?.category}</p>
+          <h3 className="">{product?.title.toUpperCase()}</h3>
+          <p>Price: ${product?.price}</p>
+          <p>Category: {product?.category}</p>
         </div>
       ))}
     </div>
